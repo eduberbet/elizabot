@@ -29,7 +29,7 @@ function elizaStep() {
 		return;
 	}
 	else if (userinput != '') {
-		var usr = 'YOU:   ' + userinput;
+		var usr = 'Você:   ' + userinput;
 		var rpl ='ELIZA: ' + eliza.transform(userinput);
 		elizaLines.push(usr);
 		elizaLines.push(rpl);
@@ -80,10 +80,10 @@ function elizaStep() {
 <P>&nbsp;</P>
 <TABLE BORDER="0" CELLSPACING="12" CELLPADDDING="0">
 <TR><TD COLSPAN="2">
-ELIZA is a natural language conversation program described by Joseph Weizenbaum in January 1966 <A HREF="#ELIZA">[1]</A>.<BR>
-It features the dialog between a human user and a computer program representing a mock Rogerian psychotherapist.<BR>
-The original program was implemented on the IBM 7094 of the Project MAC time-sharing system at MIT and was written in MAD-SLIP.<BR><BR>
-This is how Joseph Weizenbaum discussed his choice for a conversation model as it would be found in psychotherapist's session:
+ELIZA é um programa de conversação em idioma natural descrito por Joseph Weizenbaum em janeiro de 1966 <A HREF="#ELIZA">[1]</A>.<BR>
+Apresenta o diálogo entre um usuário humano (Você) e um programa de computador representando um psicoterapeuta rogeriano.<BR>
+O programa original foi implementado no IBM 7094 do sistema de compartilhamento de tempo do Project MAC no MIT e foi escrito em MAD-SLIP.<BR><BR>
+Foi assim que Joseph Weizenbaum discutiu sua escolha por um modelo de conversa, como seria encontrado na sessão do psicoterapeuta:
 <BLOCKQUOTE>
 At this writing, the only serious ELIZA scripts which exist are some which cause
 ELIZA to respond roughly as would certain psychotherapists (Rogerians). ELIZA
