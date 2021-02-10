@@ -4,10 +4,10 @@ projeto original encontrado em: [http://www.masswerk.at/elizabot/](http://www.ma
 
 ## Objetivos
 
-1 - Traduzir a experiencia (original em Inglês); *etapa atual
-2 - Melhorar a interface;
-3 - expandir a experiencia (fazer uma versão 2.0).
-4 - Aceito sugestões...
+ - 1 - Traduzir a experiencia (original em Inglês); *etapa atual
+ - 2 - Melhorar a interface;
+ - 3 - expandir a experiencia (fazer versão 2.0).
+ - 4 - Aceito sugestões...
 
 ## Código em:
 
