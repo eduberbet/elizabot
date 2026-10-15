@@ -24,7 +24,7 @@ function elizaStep() {
 	var userinput = f.e_input.value;
 	if (eliza.quit) {
 		f.e_input.value = '';
-		if (confirm("This session is over.\nStart over?")) elizaReset();
+		if (confirm("Esta sessão acabou.\nDeseja reiniciar?")) elizaReset();
 		f.e_input.focus();
 		return;
 	}
@@ -33,8 +33,8 @@ function elizaStep() {
 		var rpl ='ELIZA: ' + eliza.transform(userinput);
 		elizaLines.push(usr);
 		elizaLines.push(rpl);
-		// display nicely
-		// (fit to textarea with last line free - reserved for extra line caused by word wrap)
+		// exibir de forma organizada
+		// (ajustar ao textarea deixando a última linha livre para quebras de linha)
 		var temp  = new Array();
 		var l = 0;
 		for (var i=elizaLines.length-1; i>=0; i--) {
@@ -46,7 +46,7 @@ function elizaStep() {
 		f.e_display.value = elizaLines.join('\n');
 	}
 	else if (elizaLines.length == 0) {
-		// no input and no saved lines -> output initial
+		// sem entrada e sem linhas salvas -> exibe saudação inicial
 		var initial = 'ELIZA: ' + eliza.getInitial();
 		elizaLines.push(initial);
 		f.e_display.value = initial + '\n';
@@ -69,7 +69,7 @@ function elizaStep() {
 <TR><TD COLSPAN="2"><TEXTAREA NAME="e_display" COLS="60" ROWS="20"></TEXTAREA></TD></TR>
 <TR VALIGN="middle">
 	<TD><INPUT TYPE="text" NAME="e_input" SIZE="50"></TD>
-	<TD ALIGN="right"><INPUT TYPE="submit" VALUE="&nbsp;Talk&nbsp;"> <INPUT TYPE="reset" VALUE="Reset" onClick="window.setTimeout('elizaReset()',100)"></TD>
+	<TD ALIGN="right"><INPUT TYPE="submit" VALUE="&nbsp;Falar&nbsp;"> <INPUT TYPE="reset" VALUE="Reiniciar" onClick="window.setTimeout('elizaReset()',100)"></TD>
 </TR>
 </FORM>
 </TABLE>
@@ -79,156 +79,145 @@ function elizaStep() {
 <P>&nbsp;</P>
 <TABLE BORDER="0" CELLSPACING="12" CELLPADDDING="0">
 <TR><TD COLSPAN="2">
-ELIZA é um programa de conversação em idioma natural descrito por Joseph Weizenbaum em janeiro de 1966 <A HREF="#ELIZA">[1]</A>.<BR>
+ELIZA é um programa de conversação em linguagem natural descrito por Joseph Weizenbaum em janeiro de 1966 <A HREF="#ELIZA">[1]</A>.<BR>
 Apresenta o diálogo entre um usuário humano (Você) e um programa de computador representando um psicoterapeuta rogeriano.<BR>
 O programa original foi implementado no IBM 7094 do sistema de compartilhamento de tempo do Project MAC no MIT e foi escrito em MAD-SLIP.<BR><BR>
 Foi assim que Joseph Weizenbaum discutiu sua escolha por um modelo de conversa, como seria encontrado na sessão do psicoterapeuta:
 <BLOCKQUOTE>
 ELIZA tem um melhor desempenho quando seu correspondente humano é inicialmente instruído a
-& quot; falar & quot; para ele, através da máquina de escrever, é claro, assim como alguém faria para um
-psiquiatra. Este modo de conversa foi escolhido porque o psiquiatra
-entrevista é um dos poucos exemplos de linguagem natural diádica categorizada de
-comunicação em que um dos pares participantes é livre para assumir a postura
+&quot;falar&quot; para ele, através da máquina de escrever, é claro, assim como alguém faria para um
+psiquiatra. Este modo de conversa foi escolhido porque a entrevista psiquiátrica
+é um dos poucos exemplos de linguagem natural diádica categorizada de
+comunicação em que um dos participantes é livre para assumir a postura
 de saber quase nada do mundo real. Se, por exemplo, alguém fosse dizer a um
-psiquiatra & quot; Fiz um longo passeio de barco & quot; e ele respondeu & quot; Diga
-me sobre barcos & quot ;, não se poderia supor que ele não sabia nada sobre barcos, mas
-que ele tinha algum propósito em direcionar a conversa subsequente. Isto é
+psiquiatra &quot;Fiz um longo passeio de barco&quot; e ele respondesse &quot;Diga-me
+sobre barcos&quot;, não se poderia supor que ele não sabia nada sobre barcos, mas
+que ele tinha algum propósito em direcionar a conversa subsequente. É
 importante observar que essa suposição é feita pelo falante. Seja
-realista ou não é uma questão totalmente distinta. Em qualquer caso, tem uma
+realista ou não, é uma questão totalmente distinta. Em qualquer caso, tem uma
 utilidade psicológica crucial na medida em que serve ao falante para manter sua
-sensação de ser ouvido e compreendido. O palestrante ainda defende sua impressão
-(que mesmo na vida real pode ser ilusório), atribuindo a sua conversação
-ao parceiro de todos os tipos de conhecimento prévio, percepções e capacidade de raciocínio. Mas
-novamente, essas são as contribuições do <em> palestrante </em> para a conversa.</BLOCKQUOTE>
-Para uma conversacao de exemplo, veja a pagina: <A HREF="eliza_test.html">Eliza Test</A>.
+sensação de ser ouvido e compreendido. O falante ainda defende sua impressão
+(que mesmo na vida real pode ser ilusória), atribuindo ao seu parceiro de conversa
+todo tipo de conhecimento prévio, percepções e capacidade de raciocínio. Mas
+novamente, essas são as contribuições do <em>falante</em> para a conversa.</BLOCKQUOTE>
+Para uma conversa de exemplo, veja a página: <A HREF="eliza_test.html">Teste da Eliza</A>.
 </TD></TR>
 <TR><TD COLSPAN="2">&nbsp;</TD></TR>
 <TR><TD COLSPAN="2">
-	<H3>About elizabot.js</H3>
-	<P>&quot;elizabot.js&quot; is an object oriented JavaScript library for [multiple] instances of the Eliza program.</P>
-	<PRE STYLE="line-height: 120%;">Synopsis:
+	<H3>Sobre o elizabot.js</H3>
+	<P>&quot;elizabot.js&quot; é uma biblioteca JavaScript orientada a objetos para [múltiplas] instâncias do programa Eliza.</P>
+	<PRE STYLE="line-height: 120%;">Sinopse:
 
-         new ElizaBot( <I>&lt;random-choice-disable-flag&gt;</I> )
-         ElizaBot.prototype.transform( <I>&lt;inputstring&gt;</I> )
+         new ElizaBot( <I>&lt;flag-desativar-escolha-aleatoria&gt;</I> )
+         ElizaBot.prototype.transform( <I>&lt;string-de-entrada&gt;</I> )
          ElizaBot.prototype.getInitial()
          ElizaBot.prototype.getFinal()
          ElizaBot.prototype.reset()
 
-Usage:
+Uso:
 
          var eliza = new ElizaBot();
          var initial = eliza.getInitial();
          var reply = eliza.transform(inputstring);
          if (eliza.quit) {
-             <SPAN STYLE="color: #303030">// last user input was a quit phrase</SPAN>
+             <SPAN STYLE="color: #303030">// a última entrada do usuário foi uma frase de saída</SPAN>
          }
 
-         <SPAN STYLE="color: #303030">// method `transform()' returns a final phrase in case of a quit phrase
-         // but you can also get a final phrase with:</SPAN>
+         <SPAN STYLE="color: #303030">// o método `transform()' retorna uma frase final caso seja uma frase de saída,
+         // mas você também pode obter uma frase final com:</SPAN>
          var final = eliza.getFinal();
 
-         <SPAN STYLE="color: #303030">// other methods: reset memory and internal state</SPAN>
+         <SPAN STYLE="color: #303030">// outros métodos: reiniciar memória e estado interno</SPAN>
          eliza.reset();
 
-         <SPAN STYLE="color: #303030">// to set the internal memory size override property `memSize':</SPAN>
-         eliza.memSize = 100; <SPAN STYLE="color: #303030">// (default: 20)</SPAN>
+         <SPAN STYLE="color: #303030">// para definir o tamanho da memória interna, sobrescreva a propriedade `memSize':</SPAN>
+         eliza.memSize = 100; <SPAN STYLE="color: #303030">// (padrão: 20)</SPAN>
 
-         <SPAN STYLE="color: #303030">// to reproduce the example conversation given by J. Weizenbaum
-         // initialize with the optional random-choice-disable flag</SPAN>
+         <SPAN STYLE="color: #303030">// para reproduzir a conversa de exemplo dada por J. Weizenbaum
+         // inicialize com a flag opcional de desativar escolha aleatória</SPAN>
          var originalEliza = new ElizaBot(true);
 
 </PRE>
-	<P>As ElizaBot is a totally self-contained object and instances use their own internal memory it's possible to have multiple instances of the ElizaBot object talking to each other.</P>
-	<P>ElizaBot is also a general chatbot engine that can be supplied with any rule set.</P>
+	<P>Como o ElizaBot é um objeto totalmente independente e as instâncias usam sua própria memória interna, é possível ter múltiplas instâncias do objeto ElizaBot conversando entre si.</P>
+	<P>O ElizaBot também é um motor genérico de chatbot que pode ser alimentado com qualquer conjunto de regras.</P>
 
 <PRE STYLE="line-height: 120%;">
-Data Structures (cf: &quot;elizadata.js&quot;):
+Estruturas de Dados (cf: &quot;elizadata.js&quot;):
 
-         elizaInitials ......... Array of initial phrases
-         elizaFinals  .......... Array of final phrases
-         elizaQuits ............ Array of quit phrases
-         elizaPres ............. Array of alternating name value pairs for preprocessing
-         elizaPosts ............ Array of alternating name value pairs for postprocessing
-         elizaSynons ........... Object of words and their synonyms (as array)
-         elizaPostTransforms ... regexp/replacement pairs to be performed as final cleanings
-         elizaKeywords ......... Array of keywords with decompositions and reasemblies
+         elizaInitials ......... Array de frases iniciais
+         elizaFinals  .......... Array de frases finais
+         elizaQuits ............ Array de frases de saída
+         elizaPres ............. Array de pares de substituição alternados para pré-processamento
+         elizaPosts ............ Array de pares de substituição alternados para pós-processamento
+         elizaSynons ........... Objeto de palavras e seus sinônimos (como array)
+         elizaPostTransforms ... Pares de regexp/substituição executados como limpezas finais
+         elizaKeywords ......... Array de palavras-chave com decomposições e reconstruções
 
-         elizaKeywords elements are of:
+         elementos de elizaKeywords são do tipo:
        
-         [&quot;&lt;key&gt;&quot;, &lt;rank&gt;,
+         [&quot;&lt;chave&gt;&quot;, &lt;peso&gt;,
            [
-             [ <SPAN STYLE="color: #303030">// first decomposition pattern</SPAN>
+             [ <SPAN STYLE="color: #303030">// primeiro padrão de decomposição</SPAN>
                &quot;&lt;decomp&gt;&quot;,
                [&quot;&lt;reasmb&gt;&quot;, &quot;&lt;reasmb&gt;&quot;, &quot;&lt;reasmb&gt;&quot;]
              ],
-             [ <SPAN STYLE="color: #303030">// second decomposition pattern</SPAN>
+             [ <SPAN STYLE="color: #303030">// segundo padrão de decomposição</SPAN>
                &quot;&lt;decomp&gt;&quot;,
                [&quot;&lt;reasmb&gt;&quot;, &quot;&lt;reasmb&gt;&quot;, &quot;&lt;reasmb&gt;&quot;]
              ]
            ]
          ]
 
-         keywords with higher rank take precedence.
-         decompositions are matched in definition order.
-         reasemblies are chosen by random or cycled through if the no-random flag ist set.
+         palavras-chave com peso maior têm prioridade.
+         decomposições são comparadas na ordem de definição.
+         reconstruções são escolhidas aleatoriamente ou alternadas se a flag sem-aleatoriedade estiver ativa.
  
-         the special keyword &quot;xnone&quot; holds the rules for default phrases (no match).
+         a palavra-chave especial &quot;xnone&quot; guarda as regras para frases padrão (sem correspondência).
          
-         decomposition and reasembly syntax follow the &quot;canonical&quot; form:
+         sintaxes de decomposição e reconstrução seguem a forma &quot;canônica&quot;:
 
-         decomposition:
-           * ... any words (incl. none)
-           $ ... (in first position) reassemble for memory only
-           @synon ... substitute entry with synononym expression
+         decomposição:
+           * ... quaisquer palavras (incluindo nenhuma)
+           $ ... (na primeira posição) reconstrói apenas para memória
+           @synon ... substitui entrada pela expressão de sinônimos
 
-         reassembly:
-           (n) ... insert param of position n (first is &quot;1&quot;)
-                   positions are any matchings of &quot;*&quot; or &quot;@synon&quot;
+         reconstrução:
+           (n) ... insere o parâmetro da posição n (a primeira é &quot;1&quot;)
+                   posições são quaisquer correspondências de &quot;*&quot; ou &quot;@synon&quot;
 
-         pres, posts, synonyms, keywords, decompositions all in lower case.
-         all definitions are optional but at least elizaKeywords should be supplied.
-         if no keywords are found `transform()' returns the default string:
-         &quot;I am at a loss for words.&quot;.
+         pres, posts, sinônimos, palavras-chave e decomposições, todos em minúsculas.
+         todas as definições são opcionais, mas pelo menos elizaKeywords deve ser fornecida.
+         se nenhuma palavra-chave for encontrada, `transform()' retorna a string padrão:
+         &quot;Não tenho palavras para responder.&quot;.
 
-Note:   &quot;elizaPostTransforms&quot; is not a standard ELIZA feature and was included to provide
-         a smoothing mechanism for any productions of a bot-to-bot conversation.
+Nota:   &quot;elizaPostTransforms&quot; não é um recurso padrão da ELIZA e foi incluído para fornecer
+         um mecanismo de suavização para quaisquer produções em uma conversa robô-para-robô.
 
 </PRE>
-	<P>Data representations and syntax follow the &quot;canonical&quot; form.<BR>
-	(Since all data is transformed to and matched as regular expressions, you could also use regexps in the keywords and decompositions. Do not use any &quot;*&quot; expressions in decomposition patterns as &quot;*&quot; will be transformed to a regexp-pattern itself.)<BR>
-	The structure of &quot;elizaKeywords&quot; follows the internal data model as described by J. Weizenbaum in his article <A HREF="#ELIZA">[1]</A>.</P>
+	<P>As representações de dados e a sintaxe seguem a forma &quot;canônica&quot;.<BR>
+	(Como todos os dados são transformados e comparados como expressões regulares, você também pode usar regexps nas palavras-chave e decomposições. Não use expressões com &quot;*&quot; em padrões de decomposição, pois o próprio &quot;*&quot; será transformado em um padrão regexp.)<BR>
+	A estrutura do &quot;elizaKeywords&quot; segue o modelo de dados interno conforme descrito por J. Weizenbaum em seu artigo <A HREF="#ELIZA">[1]</A>.</P> 
  
 	<P>&nbsp;<BR>
-	&quot;elizabot.js&quot; by &copy; Norbert Landsteiner 2005;<BR>
+	&quot;elizabot.js&quot; por &copy; Norbert Landsteiner 2005;<BR>
 	mass:werk &#150; media environments &lt;<A HREF="http://www.masswerk.at/" TARGET="_blank">http://www.masswerk.at</A>&gt;.</P>
-	<P>Distribution:<BR>
-	&quot;elizabot.js&quot; is free software and provided &quot;as is&quot;.
-	It is distributed in the hope that it will be useful,
-    but without any warranty; without even the implied warranty of
-    merchantability or fitness for a particular purpose.</P>
-    <P>Compatibility:<BR>
-    &quot;elizabot.js&quot; should be compatible to most browsers with support of RegExp (that is all standard browsers).<BR>
-   (Version 1.1 doesn't require the support of lambda functions in RegExps any more.)</P>
+	<P>Distribuição:<BR>
+	&quot;elizabot.js&quot; é um software livre fornecido &quot;como está&quot;.
+	É distribuído na esperança de que seja útil,
+    mas sem qualquer garantia; sem mesmo a garantia implícita de
+    comercialização ou adequação a um propósito específico.</P>
+    <P>Compatibilidade:<BR>
+    &quot;elizabot.js&quot; deve ser compatível com a maioria dos navegadores que suportam RegExp (ou seja, todos os navegadores padrão).<BR>
+   (A versão 1.1 não requer mais o suporte a funções lambda em RegExps.)</P>
 	
 </TD></TR>
 <TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2"><B>Download</B>: <A HREF="elizabot.zip">elizabot.zip</A> &nbsp;<SMALL>(ZIP file, 15 KB incl. documentation)</SMALL></TD></TR>
+<TR><TD COLSPAN="2"><B>Download</B>: <A HREF="elizabot.zip">elizabot.zip</A> &nbsp;<SMALL>(Arquivo ZIP, 15 KB incl. documentação)</SMALL></TD></TR>
 <TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2">References:</TD></TR>
+<TR><TD COLSPAN="2">Referências:</TD></TR>
 <TR VALIGN="top">
 <TD><A NAME="ELIZA"></A>[1]</TD>
 <TD>
     Weizenbaum, Joseph &quot;ELIZA &#150; A Computer Program For the Study of Natural Language
     Communication Between Man and Machine&quot;<BR>
-    in: Communications of the ACM; Volume 9 , Issue 1 (January 1966): p 36-45.
-</TD>
-</TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2"><SMALL>&gt; <A HREF="#top">top of page</A></SMALL></TD></TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2" STYLE="font-family: arial,helvetica,sans-serif; font-size: 12px;">N. Landsteiner 2005; &lt;<A HREF="http://www.masswerk.at/" TARGET="_blank">http://www.masswerk.at</A>&gt;</SMALL></TD></TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-</TABLE>
-
-</BODY>
-</HTML>
+    em: Communications of the ACM; Volume 9 , Issue 1 (January 1966): p 3
