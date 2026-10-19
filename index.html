@@ -1,125 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<HEAD>
-	<META charset="UTF-8">
-	<META name="viewport" content="width=device-width, initial-scale=1.0">
-	<TITLE>Eliza (elizabot.js)</TITLE>
-	<LINK rel="stylesheet" href="style.css">
-	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="elizabot.js"></SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="elizadata.js"></SCRIPT>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Eliza (elizabot.js)</title>
+	<link rel="stylesheet" href="style.css">
+	<!-- Importação do módulo orquestrador ES6 -->
+	<script type="module" src="app.js"></script>
+</head>
 
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
-<!--
+<body>
 
-var eliza = new ElizaBot();
+<div class="container">
+	<header>
+		<h1>Eliza</h1>
+		<p>Psicoterapeuta Rogeriana Virtual (1966)</p>
+	</header>
 
-function elizaReset() {
-	eliza.reset();
-	var display = document.getElementById("chatDisplay");
-	display.innerHTML = '';
-	
-	// Adiciona saudação inicial
-	appendMessage("ELIZA", eliza.getInitial(), "bot");
-	document.getElementById("userInput").focus();
-}
-
-function appendMessage(sender, text, type) {
-	var display = document.getElementById("chatDisplay");
-	
-	var msgDiv = document.createElement("div");
-	msgDiv.className = "message " + type;
-	
-	var senderDiv = document.createElement("div");
-	senderDiv.className = "sender";
-	senderDiv.innerText = sender;
-	
-	var textDiv = document.createElement("div");
-	textDiv.innerText = text;
-	
-	msgDiv.appendChild(senderDiv);
-	msgDiv.appendChild(textDiv);
-	
-	display.appendChild(msgDiv);
-	
-	// Rolar automaticamente para o final da conversa
-	display.scrollTop = display.scrollHeight;
-}
-
-function elizaStep() {
-	var inputEl = document.getElementById("userInput");
-	var userinput = inputEl.value.trim();
-	
-	if (eliza.quit) {
-		inputEl.value = '';
-		if (confirm("Esta sessão acabou.\nDeseja reiniciar?")) elizaReset();
-		inputEl.focus();
-		return;
-	}
-	else if (userinput != '') {
-		appendMessage("Você", userinput, "user");
-		inputEl.value = '';
+	<main class="chat-card">
+		<div id="chatDisplay" class="chat-messages"></div>
 		
-		var reply = eliza.transform(userinput);
-		appendMessage("ELIZA", reply, "bot");
-	}
-	inputEl.focus();
-}
+		<form class="chat-input-area" onsubmit="return false;">
+			<input type="text" id="userInput" placeholder="Digite sua mensagem..." autocomplete="off">
+			<button type="submit" class="btn btn-primary">Enviar</button>
+			<button type="button" class="btn btn-secondary">Reiniciar</button>
+		</form>
+	</main>
+</div>
 
-// Suporte para pressionar tecla Enter
-function handleKeyPress(e) {
-	if (e.keyCode === 13) {
-		elizaStep();
-		return false;
-	}
-}
-
-// Initialize chat on page load
-window.onload = function() {
-	elizaReset();
-};
-
-//-->
-</SCRIPT>
-</HEAD>
-
-<BODY>
-
-<DIV class="container">
-	<HEADER>
-		<H1>Eliza</H1>
-		<P>Psicoterapeuta Rogeriana Virtual (1966)</P>
-	</HEADER>
-
-	<MAIN class="chat-card">
-		<DIV id="chatDisplay" class="chat-messages"></DIV>
-		
-		<FORM onsubmit="elizaStep(); return false;" class="chat-input-area">
-			<INPUT type="text" id="userInput" placeholder="Digite sua mensagem..." onkeydown="return handleKeyPress(event)" autocomplete="off">
-			<BUTTON type="button" onclick="elizaStep()" class="btn btn-primary">Enviar</BUTTON>
-			<BUTTON type="button" onclick="elizaReset()" class="btn btn-secondary">Reiniciar</BUTTON>
-		</FORM>
-	</MAIN>
-</DIV>
-
-<FOOTER>
-	<DIV class="about-section">
-		<H2>Sobre a ELIZA</H2>
-		<P>
+<footer>
+	<div class="about-section">
+		<h2>Sobre a ELIZA</h2>
+		<p>
 			ELIZA é um programa de conversação em linguagem natural descrito por Joseph Weizenbaum em janeiro de 1966.
 			Apresenta o diálogo entre um usuário humano e um programa de computador representando um psicoterapeuta rogeriano.
-		</P>
-		<BLOCKQUOTE>
+		</p>
+		<blockquote>
 			"ELIZA tem um melhor desempenho quando seu correspondente humano é inicialmente instruído a 'falar' para ele... 
 			Este modo de conversa foi escolhido porque a entrevista psiquiátrica é um dos poucos exemplos em que um dos participantes é livre para assumir a postura de saber quase nada do mundo real."
 			— Joseph Weizenbaum
-		</BLOCKQUOTE>
+		</blockquote>
 		
-		<DIV class="links-list">
-			<A HREF="eliza_test.html">Ir para o Teste Histórico de 1966</A>
-			<A HREF="http://www.masswerk.at/elizabot/" TARGET="_blank">Projeto Original de N. Landsteiner</A>
-		</DIV>
-	</DIV>
-</FOOTER>
+		<div class="links-list">
+			<a href="eliza_test.html">Ir para o Teste Histórico de 1966</a>
+			<a href="http://www.masswerk.at/elizabot/" target="_blank" rel="noopener noreferrer">Projeto Original de N. Landsteiner</a>
+		</div>
+	</div>
+</footer>
 
-</BODY>
-</HTML>
+</body>
+</html>
