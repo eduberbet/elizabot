@@ -1,133 +1,98 @@
-<HTML>
-<HEAD>
-	<TITLE>Teste da Eliza</TITLE>
-	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="elizabot.js"></SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="elizadata.js"></SCRIPT>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Teste da Eliza (1966)</title>
+	<link rel="stylesheet" href="style.css">
 
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
-<!--
+	<script type="module">
+		import ElizaBot from './elizaEngine.js';
+		import elizaData from './elizadata.js';
 
-// inicializar com o argumento 'true': sem escolhas aleatórias
-var eliza = new ElizaBot(true);
+		// Inicializar com 'true' para desativar escolhas aleatórias (modo histórico determinístico)
+		const eliza = new ElizaBot(elizaData, true);
 
-var exampleLines= [
-"Os homens são todos iguais.",
-"Eles estão sempre nos amolando por uma coisa ou outra.",
-"Bom, meu namorado me fez vir aqui.",
-"Ele diz que eu fico deprimida na maior parte do tempo.",
-"É verdade. Eu sou infeliz.",
-"Eu preciso de ajuda, isso parece certo.",
-"Talvez eu pudesse aprender a me dar bem com minha mãe.",
-"Minha mãe cuida de mim.",
-"Meu pai.",
-"Você se parece com meu pai em alguns aspectos.",
-"Você não é muito agressivo, mas acho que não quer que eu perceba isso.",
-"Você não discute comigo.",
-"Você tem medo de mim.",
-"Meu pai tem medo de todo mundo.",
-"Valentões."
-];
+		const exampleLines = [
+			"Os homens são todos iguais.",
+			"Eles estão sempre nos amolando por uma coisa ou outra.",
+			"Bom, meu namorado me fez vir aqui.",
+			"Ele diz que eu fico deprimida na maior parte do tempo.",
+			"É verdade. Eu sou infeliz.",
+			"Eu preciso de ajuda, isso parece certo.",
+			"Talvez eu pudesse aprender a me dar bem com minha mãe.",
+			"Minha mãe cuida de mim.",
+			"Meu pai.",
+			"Você se parece com meu pai em alguns aspectos.",
+			"Você não é muito agressivo, mas acho que não quer que eu perceba isso.",
+			"Você não discute comigo.",
+			"Você tem medo de mim.",
+			"Meu pai tem medo de todo mundo.",
+			"Valentões."
+		];
 
-var exampleCursor=0;
+		let exampleCursor = 0;
 
-function elizaReset() {
-	eliza.reset();
-	exampleCursor=0;
-}
+		function elizaReset() {
+			eliza.reset();
+			exampleCursor = 0;
+			const display = document.getElementById("testDisplay");
+			if (display) display.value = '';
+		}
 
-function elizaNext() {
-	if (exampleCursor >= exampleLines.length) {
-		alert('Última entrada alcançada.\nClique em "Reiniciar" para começar novamente.');
-		return;
-	}
-	var userinput = exampleLines[exampleCursor++];
-	document.forms.eform.edisplay.value += 'USUÁRIO: ' + userinput + '\n';
-	document.forms.eform.edisplay.value += 'ELIZA:   ' + eliza.transform(userinput) + '\n';
-}
+		function elizaNext() {
+			const display = document.getElementById("testDisplay");
+			if (exampleCursor >= exampleLines.length) {
+				alert('Última entrada alcançada.\nClique em "Reiniciar" para começar novamente.');
+				return;
+			}
+			const userinput = exampleLines[exampleCursor++];
+			display.value += 'USUÁRIO: ' + userinput + '\n';
+			display.value += 'ELIZA:   ' + eliza.transform(userinput) + '\n\n';
+			display.scrollTop = display.scrollHeight;
+		}
 
-//-->
-</SCRIPT>
-</HEAD>
+		document.addEventListener('DOMContentLoaded', () => {
+			document.getElementById('btnNext').addEventListener('click', elizaNext);
+			document.getElementById('btnReset').addEventListener('click', elizaReset);
+			elizaReset();
+		});
+	</script>
+</head>
 
-<BODY TOPMARGIN="0" LEFTMARGIN="0" RIGHTMARGIN="0" BOTTOMMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0" STYLE="border:0"><A NAME="top"></A>
+<body>
 
-<CENTER>
-<P>&nbsp;</P>
-<H3>Teste da Eliza</H3>
-<TABLE BORDER="0" CELLSPACING="10" CELLPADDING="0">
-<FORM NAME="eform" onsubmit="return false">
-<TR VALIGN="top">
-<TD><TEXTAREA NAME="edisplay" COLS="80" ROWS="32"></TEXTAREA></TD>
-<TD ALIGN="center"><INPUT TYPE="button" VALUE="Próximo passo" onclick="elizaNext()"><BR><BR><INPUT TYPE="reset" VALUE="Reiniciar" onclick="elizaReset(); return true"></TD>
-</TR>
-</FORM>
-</TABLE>
-</CENTER>
+<div class="container">
+	<header>
+		<h1>Teste Histórico da Eliza</h1>
+		<p>Simulação da conversa típica de Joseph Weizenbaum (Janeiro de 1966)</p>
+	</header>
 
-<P>&nbsp;</P>
-<TABLE BORDER="0" CELLSPACING="12" CELLPADDDING="0">
-<TR>
-<TD COLSPAN="2">
-Esta é uma aplicação de teste para a <A HREF="index.html">biblioteca JavaScript &quot;elizabot.js&quot;</A> (Norbert Landsteiner 2005; &lt;http://www.masswerk.at&gt;).<BR>
-A aplicação de teste deve reproduzir o exemplo original fornecido por Joseph Weizenbaum no seu artigo sobre a ELIZA de janeiro de 1966 <A HREF="#ELIZA">[1]</A>.<BR> Clique em &quot;Próximo passo&quot; para ver a próxima entrada e a resposta da Eliza. Clique em &quot;Reiniciar&quot; para reiniciar a Eliza e o formulário.</TD>
-</TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2">Esta é a &quot;conversa típica&quot; como descrita por Joseph Weizenbaum:</TD></TR>
-<TR>
-<TD>&nbsp;</TD>
-<TD>
-Os homens são todos iguais.<BR><BR>
-DE QUE MANEIRA?<BR><BR>
-Eles estão sempre nos amolando por uma coisa ou outra.<BR><BR>
-PODE PENSAR EM UM EXEMPLO ESPECÍFICO?<BR><BR>
-Bom, meu namorado me fez vir aqui.<BR><BR>
-SEU NAMORADO TE FEZ VIR AQUI?<BR><BR>
-Ele diz que eu fico deprimida na maior parte do tempo.<BR><BR>
-LAMENTO SABER QUE VOCÊ ESTÁ DEPRIMIDA.<BR><BR>
-É verdade.<BR>
-Eu sou infeliz.<BR><BR>
-ACHA QUE VIR AQUI TE AJUDARÁ A NÃO FICAR INFELIZ?<BR><BR>
-Eu preciso de ajuda, isso parece certo.<BR><BR>
-O QUE SIGNIFICARIA PARA VOCÊ SE CONSEGUISSE AJUDA?<BR><BR>
-Talvez eu pudesse aprender a me dar bem com minha mãe.<BR><BR>
-ME CONTE MAIS SOBRE SUA FAMÍLIA.<BR><BR>
-Minha mãe cuida de mim.<BR><BR>
-QUEM MAIS NA SUA FAMÍLIA CUIDA DE VOCÊ?<BR><BR>
-Meu pai.<BR><BR>
-SEU PAI?<BR><BR>
-Você se parece com meu pai em alguns aspectos.<BR><BR>
-QUAL SEMELHANÇA VOCÊ VÊ?<BR><BR>
-Você não é muito agressivo<BR>
-mas acho que não quer que eu perceba isso.<BR><BR>
-O QUE TE FAZ PENSAR QUE NÃO SOU MUITO AGRESSIVO?<BR><BR>
-Você não discute comigo.<BR><BR>
-POR QUE ACHA QUE NÃO DISCUTO COM VOCÊ?<BR><BR>
-Você tem medo de mim.<BR><BR>
-TE AGRADA ACREDITAR QUE TENHO MEDO DE VOCÊ?<BR><BR>
-Meu pai tem medo de todo mundo.<BR><BR>
-O QUE MAIS VEM À SUA MENTE QUANDO PENSA EM SEU PAI?<BR><BR>
-Valentões.<BR><BR>
-ISSO TEM ALGO A VER COM O FATO DE SEU NAMORADO TE FAZER VIR AQUI?<BR>
-&nbsp;
-</TD>
-</TR>
-<TR><TD COLSPAN="2">(As linhas em maiúsculas são as respostas da máquina.)</TD></TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2">Referências:</TD></TR>
-<TR VALIGN="top">
-<TD><A NAME="ELIZA"></A>[1]</TD>
-<TD>
-    Weizenbaum, Joseph &quot;ELIZA &#150; A Computer Program For the Study of Natural Language
-    Communication Between Man and Machine&quot;<BR>
-    em: Communications of the ACM; Volume 9 , Issue 1 (January 1966): p 36-45.
-</TD>
-</TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2"><SMALL>&gt; <A HREF="#top">topo da página</A></SMALL></TD></TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-<TR><TD COLSPAN="2" STYLE="font-family: arial,helvetica,sans-serif; font-size: 12px;">N. Landsteiner 2005; &lt;<A HREF="http://www.masswerk.at/" TARGET="_blank">http://www.masswerk.at</A>&gt;</SMALL></TD></TR>
-<TR><TD COLSPAN="2">&nbsp;</TD></TR>
-</TABLE>
+	<main class="chat-card" style="height: auto; padding: 20px;">
+		<div style="display: flex; flex-direction: column; gap: 15px;">
+			<textarea id="testDisplay" readonly style="width: 100%; height: 350px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: monospace; font-size: 0.95rem; resize: vertical; background: #fafafa;"></textarea>
+			
+			<div style="display: flex; gap: 10px; justify-content: flex-end;">
+				<button id="btnNext" class="btn btn-primary">Próximo passo</button>
+				<button id="btnReset" class="btn btn-secondary">Reiniciar</button>
+			</div>
+		</div>
+	</main>
+</div>
 
-</BODY>
-</HTML>
+<footer>
+	<div class="about-section">
+		<h2>Sobre este Teste</h2>
+		<p>
+			Esta aplicação de teste reproduz a "conversa típica" descrita por Joseph Weizenbaum em seu artigo original na ACM em 1966.
+			Clique em <strong>"Próximo passo"</strong> para avançar cada frase da conversa simulada.
+		</p>
+		
+		<div class="links-list" style="margin-top: 15px;">
+			<a href="index.html">← Voltar para o Chat Principal</a>
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>

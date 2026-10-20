@@ -14,35 +14,38 @@ Projeto baseado na biblioteca clássica JavaScript de Norbert Landsteiner (2005)
   - Tradução da interface de usuário e documentação técnica (`index.html`).
   - Ajustes de pontuação e separadores de frase no motor (`elizabot.js`).
 
-- [ ] **Fase 2: Refatoração e Modularização**
-  - Atualização do código para JavaScript Moderno (ES6+ Classes).
-  - Separação de responsabilidades em módulos (`import`/`export`), criando uma biblioteca/motor desacoplado e reutilizável em outros projetos.
-  - Otimização do gerenciamento de estado e eliminação de variáveis globais.
+- [x] **Fase 2: Refatoração, Modularização e Frontend (Concluída)**
+  - Atualização do código para JavaScript Moderno (ES6+ Classes em `elizaEngine.js`).
+  - Separação de responsabilidades em módulos (`import`/`export`), desacoplando o motor da interface.
+  - Redesign completo da interface de usuário (`style.css`) em formato de chat moderno.
+  - Atualização do `app.js` e do `eliza_test.html` para consumir o motor modularizado sem dependências globais.
 
 - [ ] **Fase 3: Eliza 2.0 (Evolução do Motor & Contexto Emocional)**
-  - Redesign completo da interface (UI responsiva no estilo chat moderno com efeito "digitando...").
-  - Suporte a Regex moderno com *Named Capture Groups* e normalização de acentos.
+  - Animação e efeito visual de "ELIZA está digitando...".
+  - Suporte a Regex moderno com *Named Capture Groups* e normalização de acentos/diacríticos.
   - **Sistema de Memória & Contexto Inteligente:**
-    - Armazenamento no `localStorage` limitado a um teto fixo de 20 interações para evitar acúmulo desnecessário.
-    - **Variáveis de Estado Emocional / Humor:** Mapeamento e retenção do sentimento do usuário (ex: feliz, triste, deprimido) para modular a interpretação de frases ambíguas/figuradas.
-    - **Entidades e Relações:** Mapeamento de pessoas relevantes citadas (ex: namorado, mãe) e tópicos centrais.
-    - **Nível de Engajamento:** Percepção de respostas curtas para adaptar a postura do bot.
+    - Armazenamento no `localStorage` com teto de 20 interações.
+    - **Variáveis de Estado Emocional / Humor:** Mapeamento do sentimento do usuário (ex: feliz, triste) para modular a interpretação de frases ambíguas/figuradas.
+    - **Entidades e Relações:** Mapeamento de pessoas citadas (ex: namorado, mãe) e tópicos centrais.
+    - **Nível de Engajamento:** Detecção de respostas curtas para adaptar a postura do bot.
 
 ---
 
 ## 🛠️ Como Executar
 
-Não é necessária nenhuma instalação ou compilação complexa.
+Por utilizar módulos nativos do ES6 (`import`/`export`), execute a aplicação através de um servidor web local.
 
 1. Faça o download ou clone este repositório.
-2. Abra o arquivo `index.html` em qualquer navegador web moderno para conversar com a ELIZA.
-3. Para testar o diálogo histórico de 1966 passo a passo, abra o arquivo `eliza_test.html`.
+2. Inicie um servidor HTTP simples na pasta do projeto (ex: extensão *Live Server* no VS Code ou executando `npx serve` / `python -m http.server`).
+3. Abra `index.html` para conversar com a ELIZA ou `eliza_test.html` para o teste histórico.
 
 ---
 
 ## 📁 Estrutura dos Arquivos
 
-* `index.html`: Interface principal de conversação e documentação técnica.
-* `eliza_test.html`: Aplicação de teste que executa o script de exemplo original em português.
-* `elizabot.js`: O motor de execução e regras do chatbot.
-* `elizadata.js`: O dicionário de dados contendo palavras-chave, sinônimos e padrões de resposta em português.
+* `index.html`: Interface gráfica principal do chat.
+* `eliza_test.html`: Aplicação de teste com o diálogo histórico de 1966.
+* `style.css`: Estilização visual moderna e responsiva em balões de conversa.
+* `elizaEngine.js`: O motor do chatbot refatorado em Classe ES6.
+* `elizadata.js`: O dicionário de regras e dados exportado como módulo ES6.
+* `app.js`: Orquestrador da interface gráfica e manipulação do DOM.
